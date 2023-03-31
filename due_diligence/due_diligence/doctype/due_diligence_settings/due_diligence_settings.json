@@ -9,6 +9,7 @@
   "email_template_section",
   "accepted_email_template",
   "decline_email_template",
+  "sent_to_email",
   "email_details_section",
   "email_cc",
   "url_expiry_days"
@@ -46,12 +47,18 @@
    "fieldname": "email_details_section",
    "fieldtype": "Section Break",
    "label": "Accepted Email IDS"
+  },
+  {
+   "fieldname": "sent_to_email",
+   "fieldtype": "Data",
+   "label": "Sent To Email",
+   "options": "Email"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-11-03 10:46:33.656181",
+ "modified": "2023-03-31 15:59:19.951549",
  "modified_by": "Administrator",
  "module": "Due Diligence",
  "name": "Due Diligence Settings",

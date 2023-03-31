@@ -8,6 +8,8 @@
  "engine": "InnoDB",
  "field_order": [
   "quotation_details_section",
+  "document_type",
+  "document_name",
   "quotation",
   "data_1",
   "column_break_8",
@@ -152,11 +154,23 @@
   {
    "fieldname": "column_break_16",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "document_type",
+   "fieldtype": "Link",
+   "label": "DocType",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "document_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Document Name",
+   "options": "document_type"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-10-20 15:19:13.855888",
+ "modified": "2023-03-31 15:43:39.086926",
  "modified_by": "Administrator",
  "module": "Due Diligence",
  "name": "Due Diligence",

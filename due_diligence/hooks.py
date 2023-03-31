@@ -36,7 +36,7 @@ fixtures = ["Custom Field"]
 # include js in doctype views
 doctype_js = {
 	"Quotation" : "public/js/doctype_js/custom_quotation.js",
-	"Sales Order" : "public/js/doctype_js/custom_salesorder.js"
+	"Sales Invoice" : "public/js/doctype_js/custom_salesinvoice.js"
 	}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -102,11 +102,17 @@ doctype_js = {
 # Hook on document methods and events
 
 doc_events = {
-	"Quotation": {
-		# "on_submit": "due_diligence.attach_pdf.attach_pdf",
-		"on_submit": "due_diligence.attach_pdf.attach_pdf",
-		# "on_cancel": "method",
-		# "on_trash": "method"
+	# "Quotation": {
+	# 	# "on_submit": "due_diligence.attach_pdf.attach_pdf",
+	# 	"on_submit": "due_diligence.attach_pdf.attach_pdf",
+	# 	# "on_cancel": "method",
+	# 	# "on_trash": "method"
+	# },
+	"Sales Invoice": {
+		"on_submit": [
+			"due_diligence.attach_pdf.attach_pdf",
+			"due_diligence.python.sales_invoice.send_email"
+		]
 	}
 }
 

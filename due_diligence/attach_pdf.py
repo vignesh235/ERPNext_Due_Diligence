@@ -9,17 +9,17 @@ from frappe.model.naming import _format_autoname
 
 
 def attach_pdf(doc, event):
-    quotation_name = doc.name
-    # frappe.msgprint(quotation_name)
+    docname = doc.name
+    # frappe.msgprint(docname)
     
     fallback_language = frappe.db.get_single_value("System Settings", "language") or "en"
     args = {
         "doctype": doc.doctype,
-        "name": quotation_name,
+        "name": docname,
         "title": doc.get_title(),
         "lang": getattr(doc, "language", fallback_language),
         "show_progress": True,
-        "auto_name": quotation_name
+        "auto_name": docname
     }
     execute(**args)
     
@@ -47,7 +47,7 @@ def execute(doctype, name, title, lang=None, show_progress=True, auto_name=None)
         progress.percent = 33
         publish_progress(**progress)
 
-    pdf_data = get_pdf_data(doctype, name, format=None, doc=None)
+    pdf_data = get_pdf_data(doctype, name, format='Sales Invoice Owner', doc=None)
    
     if show_progress:
         progress.percent = 66

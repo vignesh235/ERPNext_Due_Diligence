@@ -27,17 +27,21 @@ def get_email_template_details(doctype, name, quotationName, source_doctype="Quo
     return [email_subject, email_body]
 
 @frappe.whitelist()
-def send_email_due_diligence(send_to, email_template, contact_person, quotation, source_doctype="Quotation"):
+def send_email_due_diligence(send_to, contact_person, quotation, source_doctype="Quotation", email_template=""):
     
     newDocName = create_due_diligence(send_to, email_template, contact_person, quotation, source_doctype)
     
     quotationDoc = frappe.get_doc(source_doctype, quotation)
     docAsDict = quotationDoc.as_dict()
     
-    email_subject = frappe.db.get_value('Email Template', email_template, 'subject')
-    email_body = frappe.db.get_value('Email Template', email_template, 'response')
-    email_body = frappe.render_template(email_body, docAsDict)
-    email_body = email_body.replace("{{ due_diligence_secure_url }}", f"""<b>{source_doctype}: </b><a href="{frappe.utils.get_url()+f"/proposal?quotation={quotation}&doctype={source_doctype}"}">{quotation}</a>""")
+    if email_template:
+        email_subject = frappe.db.get_value('Email Template', email_template, 'subject')
+        email_body = frappe.db.get_value('Email Template', email_template, 'response')
+        email_body = frappe.render_template(email_body, docAsDict)
+        email_body = email_body.replace("{{ due_diligence_secure_url }}", f"""<b>{source_doctype}: </b><a href="{frappe.utils.get_url()+f"/proposal?quotation={quotation}&doctype={source_doctype}"}">{quotation}</a>""")
+    else:
+        email_subject="Sales Invoice"
+        email_body=f"""<b>{source_doctype}: </b><a href="{frappe.utils.get_url()+f"/proposal?quotation={quotation}&doctype={source_doctype}"}">{quotation}</a>"""
     
     frappe.sendmail(
         recipients =  send_to,
